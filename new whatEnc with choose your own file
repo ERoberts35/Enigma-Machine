@@ -1,0 +1,7 @@
+f = input("\n Please type in the path to your file and press 'Enter': ")
+encryText = open(f,'r')
+def read():
+    if encryText.mode == "r":
+        contents = encryText.read()
+        return(contents)
+    print(contents)
