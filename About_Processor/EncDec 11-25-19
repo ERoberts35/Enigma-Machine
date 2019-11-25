@@ -1,0 +1,91 @@
+import evWheels
+import pnDic
+#whCh1,whCh2,whCh3=input("What wheels will you be using. Please select them in the format of '#-#-#'").split("-")
+#print("You have chosen wheels " ,whCh1,"-",whCh2,"-",whCh3)   #Has User select what wheels to be used.
+import whatEnc
+def encryption():
+    print('This is the encryption side')
+    inbound= 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz -,.'     #Establishes base letterset.
+    outbound = evWheels.Wheels.get("w"+ str(pnDic.wheelChoice1))
+    word = whatEnc.read()
+    wordOut = ''
+    for i in range(len(word)):
+        count = 0
+        for j in range(len(inbound)):
+            if (word[i] == inbound[j]):
+                count = j
+        wordOut = wordOut + outbound[count]
+    print("This is after one layer of encryption :" +wordOut)       #Displays message w/ one layer of encryption.
+#Second Wheel
+    inbound = outbound
+    outbound = evWheels.Wheels.get("w"+str(pnDic.wheelChoice2))
+    word = wordOut
+    wordOut = ''
+    for i in range(len(word)):
+        count = 0
+        for j in range(len(inbound)):
+            if (word[i] == inbound[j]):
+                count = j
+        wordOut = wordOut + outbound[count]
+    print("This is after two layers of encryption :"+wordOut)       #Displays message w/ two layers of encryption.
+#Third Wheel
+    inbound = outbound
+    outbound = evWheels.Wheels.get("w"+str(pnDic.wheelChoice3))
+    word = wordOut
+    wordOut = ''
+    for i in range(len(word)):
+        count = 0
+        for j in range(len(inbound)):
+            if (word[i] == inbound[j]):
+                count = j
+        wordOut = wordOut + outbound[count]
+    print("This is after three layers of encryption :"+wordOut)     #Displays message w/ three layers of encryption.
+def decryption():
+    print('This is the decryption side')
+    inbound= evWheels.Wheels.get("w"+str(pnDic.wheelChoice3))
+    outbound = evWheels.Wheels.get("w"+str(pnDic.wheelChoice2))
+    word = input("Enter the message you would like to decrypt: ")       #Reverses the above processes, making a decryption.
+    wordOut = ''
+    for i in range(len(word)):
+        count = 0
+        for j in range(len(inbound)):
+            if (word[i] == inbound[j]):
+                count = j
+        wordOut = wordOut + outbound[count]
+    print(wordOut)
+#Second Wheel
+    inbound = outbound
+    outbound = evWheels.Wheels.get("w"+str(pnDic.wheelChoice1))
+    word = wordOut
+    wordOut = ''
+    for i in range(len(word)):
+        count = 0
+        for j in range(len(inbound)):
+            if (word[i] == inbound[j]):
+                count = j
+        wordOut = wordOut + outbound[count]
+    print(wordOut) 
+#Third Wheel
+    inbound = outbound
+    outbound = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz -,.'           #Acts as the final 'wheel', is the base letterset.
+    word = wordOut
+    wordOut = ''
+    for i in range(len(word)):
+        count = 0
+        for j in range(len(inbound)):
+            if (word[i] == inbound[j]):
+                count = j
+        wordOut = wordOut + outbound[count]
+    print(wordOut)
+#Calling
+answer = '0'
+while answer == '0':
+    print('Press 1 for encrypt, or 2 for decrypt.')             #This actually starts the program, asking if the user wants to begin w/ Encryption or Decryption.
+    answer = input()
+    if answer == '1':
+        encryption()
+    if answer == '2':
+        decryption()
+    else:
+        answer = '0'
+        continue
